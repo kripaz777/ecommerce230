@@ -2,6 +2,7 @@ from django.db import models
 STATUS = (('In','In Stock'),('Out','Out Of Stock'))
 LABEL = (('new','New Product'),('hot','Hot Product'),('sale','Sale Product'))
 # Create your models here.
+from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length = 200)
     slug = models.CharField(max_length = 200,unique = True)
@@ -34,6 +35,8 @@ class Brand(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Item(models.Model):
     title = models.CharField(max_length = 300)
     price = models.IntegerField()
@@ -48,3 +51,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_url(self):
+        return reverse("home:product",kwargs = {'slug':self.slug})
