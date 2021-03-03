@@ -9,6 +9,8 @@ class Category(models.Model):
     image = models.CharField(max_length = 200,blank = True)
     def __str__(self):
         return self.name
+    def get_category_url(self):
+        return reverse("home:category",kwargs = {'slug':self.slug})
 
 class Slider(models.Model):
     name = models.CharField(max_length = 300)
