@@ -56,3 +56,23 @@ class Item(models.Model):
 
     def get_url(self):
         return reverse("home:product",kwargs = {'slug':self.slug})
+
+    def get_cart_url(self):
+        return reverse("home:add-to-cart",kwargs = {'slug':self.slug})
+
+class Cart(models.Model):
+    item = models.ForeignKey(Item,on_delete = models.CASCADE)
+    slug = models.CharField(max_length = 200)
+    quantity = models.IntegerField(default = 1)
+    user = models.CharField(max_length = 200)
+    date = models.DateTimeField(auto_now = True)
+    total = models.IntegerField(null = True)
+
+    def __str__(self):
+        return self.user
+
+    def delete_cart_url(self):
+        return reverse("home:delete-cart", kwargs={'slug': self.slug})
+
+    def delete_single_cart_url(self):
+        return reverse("home:delete-single-cart", kwargs={'slug': self.slug})
