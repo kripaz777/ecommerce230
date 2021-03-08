@@ -36,6 +36,9 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+    def get_brand_url(self):
+        return reverse("home:brand",kwargs = {'name':self.slug})
+
 
 
 
@@ -76,3 +79,12 @@ class Cart(models.Model):
 
     def delete_single_cart_url(self):
         return reverse("home:delete-single-cart", kwargs={'slug': self.slug})
+    
+class Contact(models.Model):
+    name = models.CharField(max_length = 300)
+    email = models.CharField(max_length = 300)
+    subject = models.TextField()
+    message = models.TextField()
+    
+    def __str__(self):
+        return name

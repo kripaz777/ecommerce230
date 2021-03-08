@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
@@ -21,7 +20,6 @@
                     <div class="col-lg-8">
                         <div class="row">
                             <div class="col-md-12">
-                                <center><font color = "red">You shearched for <h3>{{searched_for}}</h3></font></center>
                                 <div class="product-view-top">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -64,11 +62,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {% for search in search_query %}
-                            <div class="col-md-4">
+                            {% for cat in brand_items %}
+                              <div class="col-md-4">
                                 <div class="product-item">
                                     <div class="product-title">
-                                        <a href="{{search.get_url}}">{{search.title}}</a>
+                                        <a href="{{cat.get_url}}">{{cat.title}}</a>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -78,8 +76,8 @@
                                         </div>
                                     </div>
                                     <div class="product-image">
-                                        <a href="{{search.get_url}}">
-                                            <img src="{{search.image}}" alt="Product Image">
+                                        <a href="{{cat.get_url}}">
+                                            <img src="{{cat.image}}" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -88,10 +86,10 @@
                                         </div>
                                     </div>
                                     <div class="product-price">
-                                       {% if new.discounted_price > 0 %}
-                                <h3><span>$</span>{{new.discounted_price}}</h3>
+                                       {% if cat.discounted_price > 0 %}
+                                <h3><span>$</span>{{cat.discounted_price}}</h3>
                                 {% else %}
-                                <h3><span>$</span>{{new.price}}</h3>
+                                <h3><span>$</span>{{cat.price}}</h3>
                                 {% endif %}
                                         <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
                                     </div>
@@ -125,12 +123,21 @@
                             <h2 class="title">Category</h2>
                             <nav class="navbar bg-light">
                                 <ul class="navbar-nav">
-                                    {% for cat in categories %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{cat.get_category_url}}"><i class="fa fa-{{cat.image}}"></i>{{cat.name}}</a>
+                                        <a class="nav-link" href="#"><i class="fa fa-female"></i>Fashion & Beauty</a>
                                     </li>
-                                    {% endfor %}
-
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-child"></i>Kids & Babies Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-tshirt"></i>Men & Women Clothes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-mobile-alt"></i>Gadgets & Accessories</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa fa-microchip"></i>Electronics & Accessories</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -267,5 +274,4 @@
         </div>
         <!-- Brand End -->
 
-        <!-- Footer Start -->
-{% endblock %}
+       {% endblock %}

@@ -57,7 +57,12 @@ class CategoryView(BaseView):
         cat = Category.objects.get(slug=slug).id
         self.views['category_items'] = Item.objects.filter(category = cat)
 
-        return render(request,'category.html',self.views)
+class BrandView(BaseView):
+    def get(self, request, name):
+        cat = Brand.objects.get(slug=slug).id
+        self.views['brand_items'] = Item.objects.filter(brand=cat)
+
+        return render(request,'brand.html',self.views)
 def register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
