@@ -4,7 +4,8 @@ from django.shortcuts import render,redirect
 from django.views.generic.base import View
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
-from home.models import Category,Slider,Ad,Item,Brand,Cart
+from home.models import Category,Slider,Ad,Item,Brand,Cart,Contact
+from django.core.mail import EmailMultiAlternatives
 
 
 class BaseView(View):
@@ -162,3 +163,26 @@ def delete_single_cart(request,slug):
         Cart.objects.filter(slug=slug, user=request.user.username).update(quantity = quantity,total = total)
 
         return redirect("home:mycart")
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        data = Contact.objects.create(
+            name = name,
+            email = email,
+            subject = subject,
+            message = message
+        )
+        data.save()
+        messages.success("Message is submitted.")
+        html_content = f"<p> The customer having name {name} , " \
+            f"mail addrees {email} and subject {subject} has some message and the message is {message}"
+        msg = EmailMultiAlternatives(subject, message, 'aceaayush@gmail.com', ['aceraayush@gmail.com'])
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
+
+    return render(request,'contact.html')
