@@ -179,8 +179,7 @@ def contact(request):
         )
         data.save()
         messages.success("Message is submitted.")
-        html_content = f"<p> The customer having name {name} , " \
-            f"mail addrees {email} and subject {subject} has some message and the message is {message}"
+        html_content = f"<p> The customer having name {name} ,mail addrees {email} and subject {subject} has some message and the message is {message}"
         msg = EmailMultiAlternatives(subject, message, 'aceaayush@gmail.com', ['aceraayush@gmail.com'])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
