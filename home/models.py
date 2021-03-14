@@ -6,7 +6,7 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length = 200)
     slug = models.CharField(max_length = 200,unique = True)
-    image = models.CharField(max_length = 200,blank = True)
+    image = models.ImageField(upload_to = 'media')
     def __str__(self):
         return self.name
     def get_category_url(self):
@@ -14,7 +14,7 @@ class Category(models.Model):
 
 class Slider(models.Model):
     name = models.CharField(max_length = 300)
-    image = models.TextField()
+    image = models.ImageField(upload_to = 'media')
     description = models.TextField()
     url = models.TextField(blank = True)
 
@@ -24,22 +24,20 @@ class Slider(models.Model):
 class Ad(models.Model):
     name = models.CharField(max_length = 300)
     rank = models.IntegerField(unique = True)
-    image = models.TextField()
+    image = models.ImageField(upload_to = 'media')
     description = models.TextField(blank = True)
     def __str__(self):
         return self.name
 
 class Brand(models.Model):
     name = models.CharField(max_length = 300)
-    image = models.TextField()
+    image = models.ImageField(upload_to = 'media')
     rank = models.IntegerField()
 
     def __str__(self):
         return self.name
     def get_brand_url(self):
         return reverse("home:brand",kwargs = {'name':self.slug})
-
-
 
 
 class Item(models.Model):
@@ -52,7 +50,7 @@ class Item(models.Model):
     brand = models.ForeignKey(Brand,on_delete = models.CASCADE)
     status = models.CharField(max_length = 50,choices = STATUS)
     label = models.CharField(max_length = 60,choices = LABEL,default = 'new')
-    image = models.TextField(blank = True)
+    image = models.ImageField(upload_to = 'media')
 
     def __str__(self):
         return self.title
