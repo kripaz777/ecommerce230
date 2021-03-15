@@ -197,3 +197,16 @@ class ItemViewSet(viewsets.ModelViewSet):
 class CartViewSet(viewsets.ModelViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+from django.views.generic import View, DetailView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets, generics
+from rest_framework.filters import OrderingFilter, SearchFilter
+class ItemFilterListView(generics.ListAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+
+    filter_backends = (DjangoFilterBackend,OrderingFilter,SearchFilter)
+    filter_fields = ['id','title','price','labels','category','subcategory']
+    ordering_fields = ['price','title','id']
+    search_fields = ['title','description','short_description']
