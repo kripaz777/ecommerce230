@@ -8,5 +8,5 @@ router.register('cart', CartViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-
+    path('filter-item', ItemFilterListView.as_view(),name = 'filter-item'),
 ]
